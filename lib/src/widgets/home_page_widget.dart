@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pooldl/src/e_api/e_api.dart';
 import 'package:pooldl/src/e_api/json_classes.dart';
 import 'package:pooldl/src/e_api/pool_downloader.dart';
@@ -51,6 +52,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return s;
   }
 
+  static Future<bool> _requestStoragePermissions() async {
+    try {
+      final PermissionStatus storagePerm = await Permission.storage.request();
+      if (storagePerm == PermissionStatus.granted) {
+        return true;
+      }
+
+      final PermissionStatus externalStoragePerm =
+          await Permission.manageExternalStorage.request();
+      return externalStoragePerm == PermissionStatus.granted;
+    } on Exception {
+      return true;
+    }
+  }
+
   void _onPoolIdTextChanged(String text) {
     setState(() {
       _poolId = PoolDownloader.tryGetPoolId(text);
@@ -61,6 +77,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     _reset();
 
     try {
+      if (!await _requestStoragePermissions()) {
+        _showError('App needs storage permissions for saving the images.');
+        return;
+      }
+
       final downloader = PoolDownloader(await EApi.getInstance(), _poolId!);
       setState(() {
         _downloader = downloader;

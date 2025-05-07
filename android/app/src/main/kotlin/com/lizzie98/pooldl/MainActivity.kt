@@ -1,4 +1,4 @@
-package com.example.secuo
+package com.lizzie98.pooldl
 
 import io.flutter.embedding.android.FlutterActivity
 

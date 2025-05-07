@@ -1,0 +1,62 @@
+{
+  "@@locale": "en",
+  "yes": "Yes",
+  "@yes": {
+    "description": "Answer to a question like 'Do you want to download X?'",
+    "type": "text"
+  },
+  "appBarText": "Pool Downloader",
+  "@appBarText": {
+    "description": "Top most app bar title text.",
+    "type": "text"
+  },
+  "cancelDownloadButtonToolTip": "Cancel download",
+  "@cancelDownloadButtonToolTip": {
+    "description": "Cancel FAB on homepage tooltip.",
+    "type": "text"
+  },
+  "downloadButtonToolTip": "Download",
+  "@downloadButtonToolTip": {
+    "description": "Download FAB on homepage tooltip.",
+    "type": "text"
+  },
+  "skippedDeletedPostAmount": "Skipped: {amount}",
+  "@skippedDeletedPostAmount": {
+    "description": "Skipped deleted post amount",
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      }
+    }
+  },
+  "skippedDeletedPost": "A deleted post was skipped.",
+  "@skippedDeletedPost": {
+    "description": "Shown to the user in a snackbar when a deleted post was skipped",
+    "type": "text"
+  },
+  "individualFileDownloadProgressBarLabel": "Progress of the current file.",
+  "@individualFileDownloadProgressBarLabel": {
+    "description": "Purpose of the progress bar on the home page that shows the progress of the currently downloaded file. For screen readers.",
+    "type": "text"
+  },
+  "totalDownloadProgressBarLabel": "Total download progress.",
+  "@totalDownloadProgressBarLabel": {
+    "description": "Purpose of the progress bar on the home page that shows the total downloading progress. For screen readers.",
+    "type": "text"
+  },
+  "multiPoolDownload": "Multi Pool Download",
+  "@multiPoolDownload": {
+    "description": "Title for the Multi Pool Download Popup.",
+    "type": "text"
+  },
+  "multiPoolDownloadDescription": "This pool seems to be part of a series. Do you want to download the other parts as well?",
+  "@multiPoolDownloadDescription": {
+    "description": "Description for the Multi Pool Download Popup.",
+    "type": "text"
+  },
+  "noOnlyThisPool": "No, only this pool",
+  "@noOnlyThisPool": {
+    "description": "Button in Multi Pool Download Popup: the user does not want to download all pools of this series, only the one that they initially supplied the poold id for.",
+    "type": "text"
+  }
+}

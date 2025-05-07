@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "secuo" "\0"
+            VALUE "CompanyName", "lizzie98" "\0"
+            VALUE "FileDescription", "pooldl" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "secuo" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "secuo.exe" "\0"
-            VALUE "ProductName", "secuo" "\0"
+            VALUE "InternalName", "pooldl" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 lizzie98. All rights reserved." "\0"
+            VALUE "OriginalFilename", "pooldl.exe" "\0"
+            VALUE "ProductName", "pooldl" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

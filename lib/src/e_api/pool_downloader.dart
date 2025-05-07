@@ -78,7 +78,7 @@ class PoolDownloader {
     );
     final file = File('$pathWithoutExt.$ext');
     final IOSink sink = file.openWrite();
-    stream.consumeSourceStream().pipe(sink);
+    stream.consume((s) => s.pipe(sink));
     return (stream.progressStream, file.path);
   }
 

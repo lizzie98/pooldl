@@ -19,7 +19,16 @@ class WatchableByteStream {
   /// Gets the progress stream for this stream.
   ProgressStream get progressStream => _progressCtrl.stream;
 
-  Stream<List<int>> consumeSourceStream() async* {
+  /// Passes the source stream to the callback. The callback should return a
+  /// [Future] that completes once the stream is fully consumed. Exceptions in
+  /// the [Future] are caught and passed to the progress stream.
+  void consume(Future Function(Stream<List<int>>) consumer) {
+    unawaited(
+      consumer(_consumeSourceStream()).catchError(_progressCtrl.addError),
+    );
+  }
+
+  Stream<List<int>> _consumeSourceStream() async* {
     await for (final List<int> bytes in _source) {
       _currentByteCount += bytes.length;
       double speed = 0;

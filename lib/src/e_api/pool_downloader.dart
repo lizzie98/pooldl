@@ -82,14 +82,13 @@ class PoolDownloader {
     return (stream.progressStream, file.path);
   }
 
-  /// If the pool belongs to a series, download all pools of that series.
-  FileStream downloadAllCandidates(String path) async* {
-    yield* _downloadPools(await getPoolCandidates(), path);
-  }
-
-  /// Only download the original pool.
-  FileStream downloadSinglePool(String path) async* {
-    yield* _downloadPools([await getPool()], path);
+  /// Either download all of the pool candidates or only the original one.
+  FileStream download(String path, {bool allCandidates = true}) async* {
+    if (allCandidates) {
+      yield* _downloadPools(await getPoolCandidates(), path);
+    } else {
+      yield* _downloadPools([await getPool()], path);
+    }
   }
 
   /// Get the pool's metadata from the API. The result is cached, so this

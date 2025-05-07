@@ -1,3 +1,4 @@
+import 'package:either_dart/either.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -112,20 +113,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       }
 
       int postCount;
-      FileStream fileStream;
 
       if (downloadAll) {
         postCount = poolCandidates
             .map((p) => p.postIds.length)
             .reduce((a, b) => a + b);
-        fileStream = downloader.downloadAllCandidates(path);
       } else {
         postCount = (await downloader.getPool()).postIds.length;
-        fileStream = downloader.downloadSinglePool(path);
       }
 
       int i = 0;
-      await for (final fileStatus in fileStream) {
+      await for (final Either<(ProgressStream, String), DeletedPostException>
+          fileStatus
+          in downloader.download(path, allCandidates: downloadAll)) {
         String fileName = fileStatus.fold((a) => a.$2, (b) => b.fileName);
         fileName = splitRight(fileName, '/').$2;
         setState(() {
@@ -164,7 +164,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       });
     } on CanceledException {
       _reset();
-    } on Exception catch (e) {
+    } catch (e) {
       _showError(e.toString());
     }
   }

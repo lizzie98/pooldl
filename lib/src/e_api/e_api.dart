@@ -5,6 +5,20 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pooldl/src/e_api/json_classes.dart';
 import 'package:pooldl/src/utils/watchable_byte_stream.dart';
 
+/// HTTP response did not return 200.
+class HttpException implements Exception {
+  /// Default constructor.
+  HttpException(this.statusCode, this.reason);
+
+  /// The returned status code.
+  int statusCode;
+
+  /// The given reason.
+  String? reason;
+
+  String toString() => 'HttpException: $statusCode $reason';
+}
+
 /// API wrapper. Requests to the API are supplied with a user-agent header,
 /// which includes the appname, version, and author.
 class EApi {
@@ -35,6 +49,7 @@ class EApi {
   Future<Pool> getPool(int id) async {
     final Uri url = _pool(id);
     final http.Response response = await _client.get(url);
+    _throwIfUnsuccessful(response);
     final pool = json.decode(response.body) as Map<String, dynamic>;
     return Pool.fromJson(pool);
   }
@@ -43,6 +58,7 @@ class EApi {
   Future<Post> getPost(int id) async {
     final Uri url = _post(id);
     final http.Response response = await _client.get(url);
+    _throwIfUnsuccessful(response);
     final jsonResponse = json.decode(response.body) as Map<String, dynamic>;
     final postJson = jsonResponse['post'] as Map<String, dynamic>;
     return Post.fromJson(postJson);
@@ -53,6 +69,7 @@ class EApi {
   Future<(String, WatchableByteStream)> getImageStream(Uri url) async {
     final request = http.Request('GET', url);
     final http.StreamedResponse response = await _client.send(request);
+    _throwIfUnsuccessful(response);
     final String? contentType = response.headers['content-type'];
     final String? contentLength = response.headers['content-length'];
 
@@ -71,6 +88,12 @@ class EApi {
     final String ext = contentType.substring('image/'.length);
     final stream = WatchableByteStream(byteCount, response.stream);
     return (ext, stream);
+  }
+
+  static void _throwIfUnsuccessful(http.BaseResponse response) {
+    if (response.statusCode != 200) {
+      throw HttpException(response.statusCode, response.reasonPhrase);
+    }
   }
 }
 

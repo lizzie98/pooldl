@@ -1,0 +1,14 @@
+{
+    "@@locale": "de",
+    "yes": "Ja",
+    "appBarText": "Pool Downloader",
+    "cancelDownloadButtonToolTip": "Abbrechen",
+    "downloadButtonToolTip": "Download starten",
+    "skippedDeletedPostAmount": "Übersprungen: {amount}",
+    "skippedDeletedPost": "Ein gelöscher Post wurde übersprungen.",
+    "individualFileDownloadProgressBarLabel": "Downloadfortschritt der aktuellen Datei.",
+    "totalDownloadProgressBarLabel": "Insgesamter Fortschritt.",
+    "multiPoolDownload": "Multi Pool Download",
+    "multiPoolDownloadDescription": "Dieser Pool scheint Teil einer Serie zu sein. Möchtest Du die anderen Teile auch herunterladen?",
+    "noOnlyThisPool": "Nein, nur diesen Pool"
+}

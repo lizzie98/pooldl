@@ -16,6 +16,7 @@ class HttpException implements Exception {
   /// The given reason.
   String? reason;
 
+  @override
   String toString() => 'HttpException: $statusCode $reason';
 }
 

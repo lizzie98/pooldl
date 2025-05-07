@@ -8,7 +8,8 @@ plugins {
 android {
     namespace = "com.lizzie98.pooldl"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // fastforge informed me that some dependencies need this ndk version instead of flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

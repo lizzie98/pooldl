@@ -1,0 +1,15 @@
+output: dist/
+releases:
+  - name: local
+    jobs:
+      - name: local-android
+        package:
+          platform: android
+          target: apk
+          build_args:
+            target-platform: android-arm,android-arm64
+
+      - name: local-linux
+        package:
+          platform: linux
+          target: appimage

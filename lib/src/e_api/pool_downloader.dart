@@ -73,7 +73,7 @@ class PoolDownloader {
     Uri url,
     String pathWithoutExt,
   ) async {
-    final (String ext, WatchableByteStream stream) = await _api.getImageStream(
+    final (String ext, WatchableByteStream stream) = await _api.getMediaStream(
       url,
     );
     final file = File('$pathWithoutExt.$ext');

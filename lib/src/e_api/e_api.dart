@@ -65,9 +65,9 @@ class EApi {
     return Post.fromJson(postJson);
   }
 
-  /// Get an image as a byte stream. Also returns the file's extension, taken
-  /// from the 'content-type' header.
-  Future<(String, WatchableByteStream)> getImageStream(Uri url) async {
+  /// Get an image/video as a byte stream. Also returns the file's extension,
+  /// taken from the 'content-type' header.
+  Future<(String, WatchableByteStream)> getMediaStream(Uri url) async {
     final request = http.Request('GET', url);
     final http.StreamedResponse response = await _client.send(request);
     _throwIfUnsuccessful(response);
@@ -82,11 +82,14 @@ class EApi {
       }
     }
 
-    if (contentType == null || !contentType.startsWith('image/')) {
-      throw Exception("didn't return an image");
+    if (contentType == null) {
+      throw Exception('unrecognized file type');
+    }
+    final String? ext = _tryGetMediaFileType(contentType);
+    if (ext == null) {
+      throw Exception('invalid content-type');
     }
 
-    final String ext = contentType.substring('image/'.length);
     final stream = WatchableByteStream(byteCount, response.stream);
     return (ext, stream);
   }
@@ -95,6 +98,16 @@ class EApi {
     if (response.statusCode != 200) {
       throw HttpException(response.statusCode, response.reasonPhrase);
     }
+  }
+
+  static String? _tryGetMediaFileType(String contentType) {
+    if (contentType.startsWith('image/')) {
+      return contentType.substring('image/'.length);
+    }
+    if (contentType.startsWith('video/')) {
+      return contentType.substring('video/'.length);
+    }
+    return null;
   }
 }
 

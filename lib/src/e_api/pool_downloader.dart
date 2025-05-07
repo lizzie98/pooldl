@@ -188,7 +188,7 @@ class PoolDownloader {
         final fileName = '$pathWithoutExt.${post.file.ext}';
         yield Right(DeletedPostException(post, fileName, pool));
       } else {
-        final Uri imageUrl = post.file.url!;
+        final Uri imageUrl = _getFileUrl(post.file);
         yield Left(await downloadImageToFile(imageUrl, pathWithoutExt));
       }
     }
@@ -210,5 +210,18 @@ class PoolDownloader {
       remaining = remaining ~/ 10;
     }
     return digits;
+  }
+
+  static Uri _getFileUrl(PostFile postFile) {
+    if (postFile.url != null) {
+      return postFile.url!;
+    }
+    return Uri.parse(_getProbableFileUrl(postFile.md5, postFile.ext));
+  }
+
+  static String _getProbableFileUrl(String md5, String ext) {
+    final String a = md5.substring(0, 2);
+    final String b = md5.substring(2, 4);
+    return 'https://static1.e621.net/data/$a/$b/$md5.$ext';
   }
 }

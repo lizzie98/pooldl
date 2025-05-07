@@ -11,11 +11,21 @@ class App extends StatelessWidget {
   /// Default constructor.
   const App({super.key});
 
+  static const Color _color = Colors.green;
+
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'PoolDL',
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSeed(seedColor: _color),
+    ),
+    darkTheme: ThemeData(
+      brightness: Brightness.dark,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: _color,
+        brightness: Brightness.dark,
+      ),
     ),
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
